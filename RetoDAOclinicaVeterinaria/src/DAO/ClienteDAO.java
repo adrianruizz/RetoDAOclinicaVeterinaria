@@ -13,6 +13,34 @@ import Util.ConexionBD;
 
 public class ClienteDAO implements GenericDAO<Cliente> {
 
+<<<<<<< HEAD
+=======
+	
+public Cliente obtenerId(int id_cliente) {
+	String sql= "select id_cliente from clientes ";
+	try (Connection con = ConexionBD.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+
+
+           ps.setInt(1, id_cliente);
+           ResultSet rs = ps.executeQuery();
+
+
+           if (rs.next()) {
+               return mapearFila(rs);
+           }
+
+
+       } catch (SQLException e) {
+           System.out.println("Error al obtener por id: " + e.getMessage());
+       }
+
+
+       return null;
+   }
+
+	
+>>>>>>> branch 'main' of https://github.com/adrianruizz/RetoDAOclinicaVeterinaria.git
 	@Override
 	public boolean insertar(Cliente cliente) {
 		String sql = "INSERT INTO personas (id_cliente, telefono) VALUES (?, ? )";
@@ -64,6 +92,12 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 
 	@Override
 	public List<Cliente> obtenerTodos() {
+<<<<<<< HEAD
+=======
+	
+			List<Cliente> alumnos = new ArrayList<>();
+	    String sql = "SELECT id_cliente, id_persona, telefono  FROM clientes ORDER BY id_cliente";
+>>>>>>> branch 'main' of https://github.com/adrianruizz/RetoDAOclinicaVeterinaria.git
 
 		List<Cliente> alumnos = new ArrayList<>();
 		String sql = "SELECT *  FROM clientes ORDER BY id_cliente";
@@ -83,6 +117,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Cliente obtenerPorId(int id) {
 		String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
 
@@ -100,6 +135,30 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 			System.err.println("Error SQL al buscar ID " + id + ": " + e.getMessage());
 		}
 		return null; // no encontrado
+=======
+	public Cliente obtenerPorId(int id_cliente) {
+		 String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
+
+
+	        try (Connection con = ConexionBD.getConnection();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+
+
+	            ps.setInt(1, id_cliente);
+	            ResultSet rs = ps.executeQuery();
+
+
+	            if (rs.next()) {
+	                return mapearFila(rs);
+	            }
+
+
+	        } catch (SQLException e) {
+	            System.out.println("Error al obtener por id: " + e.getMessage());
+	        }
+
+		return null;
+>>>>>>> branch 'main' of https://github.com/adrianruizz/RetoDAOclinicaVeterinaria.git
 	}
 
 	@Override
