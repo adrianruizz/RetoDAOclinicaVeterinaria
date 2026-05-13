@@ -13,8 +13,29 @@ import Util.ConexionBD;
 public class ClienteDAO implements GenericDAO<Cliente> {
 
 	
+public Cliente obtenerId(int id_cliente) {
+	String sql= "select id_cliente from clientes ";
+	try (Connection con = ConexionBD.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
 
-	
+
+           ps.setInt(1, id_cliente);
+           ResultSet rs = ps.executeQuery();
+
+
+           if (rs.next()) {
+               return mapearFila(rs);
+           }
+
+
+       } catch (SQLException e) {
+           System.out.println("Error al obtener por id: " + e.getMessage());
+       }
+
+
+       return null;
+   }
+
 	
 	@Override
 	public boolean insertar(Cliente objeto) {
@@ -26,7 +47,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 	public List<Cliente> obtenerTodos() {
 	
 			List<Cliente> alumnos = new ArrayList<>();
-	    String sql = "SELECT id_cliente, id_persona, telefono,  FROM clientes ORDER BY id_cliente";
+	    String sql = "SELECT id_cliente, id_persona, telefono  FROM clientes ORDER BY id_cliente";
 
 			try (Connection conn = ConexionBD.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -44,8 +65,27 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 
 
 	@Override
-	public Cliente obtenerPorId(int id) {
-		
+	public Cliente obtenerPorId(int id_cliente) {
+		 String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
+
+
+	        try (Connection con = ConexionBD.getConnection();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+
+
+	            ps.setInt(1, id_cliente);
+	            ResultSet rs = ps.executeQuery();
+
+
+	            if (rs.next()) {
+	                return mapearFila(rs);
+	            }
+
+
+	        } catch (SQLException e) {
+	            System.out.println("Error al obtener por id: " + e.getMessage());
+	        }
+
 		return null;
 	}
 
