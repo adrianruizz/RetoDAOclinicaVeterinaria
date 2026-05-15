@@ -71,6 +71,21 @@ public class MascotaDAO implements GenericDAO<Mascota>{
 
 	@Override
 	public Mascota obtenerPorId(int id) {
+		   String sql = "select id_mascota, id_cliente, nombre, especie, fecha_nacimiento, peso from mascotas where id=?";
+		   try (Connection con = ConexionBD.getConnection();
+		        PreparedStatement ps = con.prepareStatement(sql)) {
+			  ps.setInt(1, id);
+			   
+			   ResultSet rs = ps.executeQuery();
+			   if(rs.next())  return mapear(rs);
+		            
+		    
+		    } catch (SQLException e) {
+		            System.out.println("Error: " + e.getMessage());
+		    }
+
+	
+		
 		return null;
 
 	}

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modulo.Cliente;
+import Modulo.Mascota;
 import Modulo.Tratamiento;
 import Util.ConexionBD;
 
@@ -21,13 +22,28 @@ public class TratamientoDAO implements GenericDAO<Tratamiento> {
 
 	@Override
 	public List<Tratamiento> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Tratamiento> lista = new ArrayList<>();
+		String sql = "select id_tratamiento, nombre, precio from tratamientos ";
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				lista.add(mapear(rs));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+
+		return lista;
+
 	}
 
+	
+	
+	
 	@Override
 	public Tratamiento obtenerPorId(int id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
