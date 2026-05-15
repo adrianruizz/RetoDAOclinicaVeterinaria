@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modulo.Factura;
+import Modulo.LineaFactura;
 import Util.ConexionBD;
 
 public class FacturaDAO implements GenericDAO<Factura>{
@@ -67,7 +68,31 @@ public class FacturaDAO implements GenericDAO<Factura>{
 
 		return null;
 	}
+	public List<Factura> obtenerTodosPorIdCliente(int id) {
+		List<Factura> lista = new ArrayList<>();
+        String sql = "SELECT * FROM lineas_factura where id_cliente = ?";
 
+
+        try (Connection con = ConexionBD.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+             
+        		ps.setInt(1, id);
+            	 ResultSet rs = ps.executeQuery();
+        	
+        	
+
+            while (rs.next()) {
+                lista.add(mapearFila(rs));
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener todos: " + e.getMessage());
+        }
+
+
+        return lista;
+	}
 	private Factura mapearFila(ResultSet rs) throws SQLException {
 		Factura a = new Factura();
 		a.setId_factura(rs.getInt("id_factura"));;
