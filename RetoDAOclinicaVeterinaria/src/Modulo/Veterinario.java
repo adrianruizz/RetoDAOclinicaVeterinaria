@@ -1,6 +1,6 @@
 package Modulo;
 
-public class Veterinario {
+public class Veterinario extends Persona{
 
 	private int id_veterinario;
 	private int id_persona;
@@ -9,6 +9,13 @@ public class Veterinario {
 	
 	public Veterinario() {
 		super();
+	}
+
+
+	public Veterinario( String dni, String nombre, String num_colegiado) {
+		super( dni, nombre);
+		this.id_veterinario = id_veterinario;
+		this.num_colegiado = num_colegiado;
 	}
 
 

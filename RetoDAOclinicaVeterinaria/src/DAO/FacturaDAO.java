@@ -70,7 +70,7 @@ public class FacturaDAO implements GenericDAO<Factura>{
 	}
 	public List<Factura> obtenerTodosPorIdCliente(int id) {
 		List<Factura> lista = new ArrayList<>();
-        String sql = "SELECT * FROM lineas_factura where id_cliente = ?";
+        String sql = "SELECT * FROM facturas where id_cliente = ?";
 
 
         try (Connection con = ConexionBD.getConnection();
