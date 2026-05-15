@@ -11,8 +11,7 @@ public class Main {
 		for (Cliente cl2 : cl.obtenerTodos()) {
 			System.out.println(cl2);
 		}
-		
-		System.out.println(cl.obtenerId(0));
+		System.out.println("Dime");
 		
 		
 	}

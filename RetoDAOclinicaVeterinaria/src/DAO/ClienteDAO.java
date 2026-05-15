@@ -12,31 +12,6 @@ import Util.ConexionBD;
 
 public class ClienteDAO implements GenericDAO<Cliente> {
 
-	
-public Cliente obtenerId(int id_cliente) {
-	String sql= "select id_cliente from clientes ";
-	try (Connection con = ConexionBD.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql)) {
-
-
-           ps.setInt(1, id_cliente);
-           ResultSet rs = ps.executeQuery();
-
-
-           if (rs.next()) {
-               return mapearFila(rs);
-           }
-
-
-       } catch (SQLException e) {
-           System.out.println("Error al obtener por id: " + e.getMessage());
-       }
-
-
-       return null;
-   }
-
-	
 	@Override
 	public boolean insertar(Cliente objeto) {
 		
