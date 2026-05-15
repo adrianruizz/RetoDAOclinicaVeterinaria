@@ -1,0 +1,45 @@
+# --- Compilación de Java ---
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# --- Directorios de Salida (Maven / Estándar) ---
+bin/
+target/
+build/
+
+# --- Archivos específicos de Eclipse ---
+.metadata/
+.recommenders/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# --- Archivos de Proyecto Eclipse ---
+# Nota: Algunos prefieren subir .project y .classpath. 
+# Si trabajas solo, puedes quitarlos de aquí. 
+# Si usas Maven/Gradle, es mejor ignorarlos.
+.project
+.classpath
+.factorypath
+
+# --- Logs y Temporales ---
+*.log
+logs/
+.externalToolBuilders/
+
+# --- Configuración de Lanzamiento (Launch Configurations) ---
+*.launch
+
+# --- Otros (Mac/Windows) ---
+.DS_Store
+Thumbs.db
