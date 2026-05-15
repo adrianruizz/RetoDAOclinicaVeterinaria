@@ -1,21 +1,18 @@
 package app;
 
+import java.util.Scanner;
+
 import DAO.ClienteDAO;
+import DAO.FacturaDAO;
+import DAO.LineaFacturaDAO;
 import Modulo.Cliente;
+import Modulo.Factura;
+import Modulo.LineaFactura;
 
 public class Main {
 
 	public static void main(String[] args) {
-	ClienteDAO cl = new ClienteDAO();
 	
-		for (Cliente cl2 : cl.obtenerTodos()) {
-			System.out.println(cl2);
-		}
-		System.out.println("Dime");
-		
-		
+	
 	}
-	
-	
-	
 }
