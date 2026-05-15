@@ -13,9 +13,8 @@ import Util.ConexionBD;
 
 public class ClienteDAO implements GenericDAO<Cliente> {
 
-<<<<<<< HEAD
-=======
-	
+
+	@Override
 public Cliente obtenerId(int id_cliente) {
 	String sql= "select id_cliente from clientes ";
 	try (Connection con = ConexionBD.getConnection();
@@ -40,7 +39,7 @@ public Cliente obtenerId(int id_cliente) {
    }
 
 	
->>>>>>> branch 'main' of https://github.com/adrianruizz/RetoDAOclinicaVeterinaria.git
+
 	@Override
 	public boolean insertar(Cliente cliente) {
 		String sql = "INSERT INTO personas (id_cliente, telefono) VALUES (?, ? )";
@@ -92,13 +91,9 @@ public Cliente obtenerId(int id_cliente) {
 
 	@Override
 	public List<Cliente> obtenerTodos() {
-<<<<<<< HEAD
-=======
-	
-			List<Cliente> alumnos = new ArrayList<>();
-	    String sql = "SELECT id_cliente, id_persona, telefono  FROM clientes ORDER BY id_cliente";
->>>>>>> branch 'main' of https://github.com/adrianruizz/RetoDAOclinicaVeterinaria.git
 
+	
+		
 		List<Cliente> alumnos = new ArrayList<>();
 		String sql = "SELECT *  FROM clientes ORDER BY id_cliente";
 
@@ -116,50 +111,7 @@ public Cliente obtenerId(int id_cliente) {
 		return alumnos;
 	}
 
-	@Override
-<<<<<<< HEAD
-	public Cliente obtenerPorId(int id) {
-		String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
 
-		try (Connection conn = ConexionBD.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-			pstmt.setInt(1, id);
-
-			try (ResultSet rs = pstmt.executeQuery()) {
-				if (rs.next()) {
-					return mapearFila(rs);
-				}
-			}
-
-		} catch (SQLException e) {
-			System.err.println("Error SQL al buscar ID " + id + ": " + e.getMessage());
-		}
-		return null; // no encontrado
-=======
-	public Cliente obtenerPorId(int id_cliente) {
-		 String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
-
-
-	        try (Connection con = ConexionBD.getConnection();
-	             PreparedStatement ps = con.prepareStatement(sql)) {
-
-
-	            ps.setInt(1, id_cliente);
-	            ResultSet rs = ps.executeQuery();
-
-
-	            if (rs.next()) {
-	                return mapearFila(rs);
-	            }
-
-
-	        } catch (SQLException e) {
-	            System.out.println("Error al obtener por id: " + e.getMessage());
-	        }
-
-		return null;
->>>>>>> branch 'main' of https://github.com/adrianruizz/RetoDAOclinicaVeterinaria.git
-	}
 
 	@Override
 	public boolean actualizar(Cliente objeto) {
@@ -180,6 +132,14 @@ public Cliente obtenerId(int id_cliente) {
 		a.setTelefono(rs.getString("telefono"));
 
 		return a;
+	}
+
+
+
+	@Override
+	public Cliente obtenerPorId(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// Muestra todos los clientes, selecciona un ID y muestras sus mascotas.
