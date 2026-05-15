@@ -44,8 +44,8 @@ public class MascotaDAO implements GenericDAO<Mascota>{
 
 	@Override
 	public Mascota obtenerPorId(int id) {
-		// TODO Auto-generated method stub
 		return null;
+
 	}
 
 	@Override
@@ -60,6 +60,24 @@ public class MascotaDAO implements GenericDAO<Mascota>{
 		return false;
 	}
 
+	
+	public List<Mascota> obtenerMascotaPorIdCliente(int id) {
+		ArrayList<Mascota> lista = new ArrayList<>();
+		String sql = "select id_mascota, id_cliente, nombre, especie, fecha_nacimiento, peso from mascotas where id_cliente=? ";
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				lista.add(mapear(rs));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+
+		return lista;
+
+	}
 
 	private Mascota mapear(ResultSet rs) throws SQLException {
 		Mascota a = new Mascota();
