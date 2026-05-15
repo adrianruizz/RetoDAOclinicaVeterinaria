@@ -8,5 +8,5 @@ public interface GenericDAO<T> {
 	T obtenerPorId(int id);
 	boolean actualizar(T objeto);
 	boolean eliminar(int id);
-	Cliente obtenerId(int id_cliente);
+	Cliente obtenerId(int id);
 }
