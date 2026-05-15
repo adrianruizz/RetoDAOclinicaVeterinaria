@@ -1,5 +1,7 @@
 package DAO;
 
-public class VeterinarioDAO {
+import Modulo.Persona;
+
+public class VeterinarioDAO extends Persona{
 
 }

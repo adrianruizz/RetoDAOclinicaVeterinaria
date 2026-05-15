@@ -1,6 +1,6 @@
 package Modulo;
 
-public class Cliente {
+public class Cliente extends Persona{
 
 	private int id_cliente;
 	private int id_persona;
