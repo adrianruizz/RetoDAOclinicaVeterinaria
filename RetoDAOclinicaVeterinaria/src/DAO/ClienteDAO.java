@@ -15,21 +15,21 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 
 	@Override
 	public boolean insertar(Cliente cliente) {
-		String sql = "INSERT INTO personas (id_cliente, telefono) VALUES (?, ? )";
+		String sql = "INSERT INTO personas (dni, nombre) VALUES (?, ? )";
 
 		try (Connection conn = ConexionBD.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			pstmt.setInt(1, cliente.getId_cliente());
+			pstmt.setString(1, cliente.getDni() );
 
-			pstmt.setString(2, cliente.getTelefono());
+			pstmt.setString(2, cliente.getNombre() );
 
 			int filas = pstmt.executeUpdate();
 
 			if (filas > 0) {
 				try (ResultSet rs = pstmt.getGeneratedKeys()) {
 					if (rs.next()) {
-						cliente.setId_cliente(rs.getInt(1)); // asigna el ID
+						cliente.setId_persona(rs.getInt(1)); // asigna el ID
 						return true;
 					}
 				}
