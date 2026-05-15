@@ -64,13 +64,12 @@ public class TratamientoDAO implements GenericDAO<Tratamiento> {
 
 	public ArrayList<Tratamiento> obtenerTratamientosPorIdMascota(int id_mascota) {
 		ArrayList<Tratamiento> lista = new ArrayList<>();
-		String sql = " select t.id_tratamiento as id_tratamiento, nombre, precio from tratamientos t inner join historial h on t.id_tratamiento=h.id_tratamiento inner join veterinarios v on v.id_veterinario=h.id_veterinario where v.id_veterinario=?";
-
+		String sql = "select t.id_tratamiento, t.nombre, t.precio from tratamientos t inner join historial h on h.id_tratamiento=t.id_tratamiento inner join mascotas m on m.id_mascota=h.id_mascota where m.id_mascota=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
 			ps.setInt(1, id_mascota);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
 				lista.add(mapear(rs));
 			}
 		} catch (SQLException e) {
