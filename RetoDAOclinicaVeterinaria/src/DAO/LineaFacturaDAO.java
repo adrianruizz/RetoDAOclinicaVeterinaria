@@ -138,5 +138,23 @@ public class LineaFacturaDAO implements GenericDAO<LineaFactura>{
 		a.setImporte(rs.getDouble("importe"));
 		return a;
 	}
+	public boolean eliminarPorId(int id_linea_factura) {
+		  String sql = "DELETE FROM lineas_factura WHERE id_linea_factura=?";
 
-}
+
+	        try (Connection con = ConexionBD.getConnection();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+
+
+	            ps.setInt(1, id_linea_factura);
+	            return ps.executeUpdate() > 0;
+
+
+	        } catch (SQLException e) {
+	            System.out.println("Error eliminando río: " + e.getMessage());
+	            return false;
+	        }
+	    }
+	}
+
+
