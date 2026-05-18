@@ -71,7 +71,7 @@ public class MascotaDAO implements GenericDAO<Mascota>{
 
 	@Override
 	public Mascota obtenerPorId(int id) {
-		   String sql = "select id_mascota, id_cliente, nombre, especie, fecha_nacimiento, peso from mascotas where id=?";
+		   String sql = "select id_mascota, id_cliente, nombre, especie, fecha_nacimiento, peso from mascotas where id_mascota=?";
 		   try (Connection con = ConexionBD.getConnection();
 		        PreparedStatement ps = con.prepareStatement(sql)) {
 			  ps.setInt(1, id);
@@ -92,9 +92,27 @@ public class MascotaDAO implements GenericDAO<Mascota>{
 
 	@Override
 	public boolean actualizar(Mascota objeto) {
-		// TODO Auto-generated method stub
-		return false;
+		   String sql = "update mascotas set id_cliente=?, nombre=?, especie=?, fecha_nacimiento=?, peso=? where id_mascota=?";
+		   try (Connection con = ConexionBD.getConnection();
+		        PreparedStatement ps = con.prepareStatement(sql)) {
+		         
+		          ps.setInt(1, objeto.getId_cliente());
+		          ps.setString(2, objeto.getNombre());
+		          ps.setString(3, objeto.getEspecie());
+		          ps.setObject(4, objeto.getFecha_nacimiento());
+		          ps.setDouble(5, objeto.getPeso());
+		          ps.setInt(6, objeto.getId_mascota());
+		    
+		          return ps.executeUpdate() > 0;
+		          
+		    } catch (SQLException e) {
+		            System.out.println("Error: " + e.getMessage());
+		    }
+		   return false;
+
+		
 	}
+	
 
 	@Override
 	public boolean eliminar(int id) {
@@ -120,6 +138,10 @@ public class MascotaDAO implements GenericDAO<Mascota>{
 		return lista;
 
 	}
+	
+	
+
+		
 
 	private Mascota mapear(ResultSet rs) throws SQLException {
 		Mascota a = new Mascota();
