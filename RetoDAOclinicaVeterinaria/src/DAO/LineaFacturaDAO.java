@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,30 @@ public class LineaFacturaDAO implements GenericDAO<LineaFactura>{
 
 	@Override
 	public boolean insertar(LineaFactura objeto) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		  String sql = "INSERT INTO lineas_factura (id_linea_factura, id_factura, id_tratamiento, fecha, cantidad, precio_tratamiento, importe) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		    try (Connection con = ConexionBD.getConnection();
+		         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+		    	ps.setInt(1, objeto.getId_linea_factura());
+		        ps.setInt(2, objeto.getId_factura());
+		        ps.setInt(3, objeto.getId_tratamiento());
+		        ps.setObject(4, objeto.getFecha());
+		        ps.setDouble(5, objeto.getCantidad());
+		        ps.setDouble(6, objeto.getPrecio_tratamiento());
+		        ps.setDouble(7, objeto.getImporte());
+		          
+		          int filas = ps.executeUpdate();
+		          if (filas > 0) {
+		                ResultSet rs = ps.getGeneratedKeys();
+		                if (rs.next()) {
+		                    objeto.setId_factura(rs.getInt(1));
+		                }
+		                return true;
+		            }
+		      } catch (SQLException e) {
+		            System.out.println("Error al insertar: " + e.getMessage());
+		      }
+		        return false;
+		    }
 	public List<LineaFactura> obtenerTodosPorIdFactura(int id_factura) {
 		List<LineaFactura> lista = new ArrayList<>();
         String sql = "SELECT * FROM lineas_factura where id_factura = ?";
@@ -67,6 +89,7 @@ public class LineaFacturaDAO implements GenericDAO<LineaFactura>{
 
         return lista;
 	}
+	
 	
 	@Override
 	public LineaFactura obtenerPorId(int id) {

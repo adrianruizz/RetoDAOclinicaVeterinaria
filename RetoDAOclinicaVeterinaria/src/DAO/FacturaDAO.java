@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,32 @@ public class FacturaDAO implements GenericDAO<Factura>{
 
 	@Override
 	public boolean insertar(Factura objeto) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		  String sql = "INSERT INTO facturas (id_cliente, id_veterinario, id_mascota, fecha, subtotal, total_iva, total) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		    try (Connection con = ConexionBD.getConnection();
+		         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+		    	ps.setInt(1, objeto.getId_cliente());
+		        ps.setInt(2, objeto.getId_veterinario());
+		        ps.setInt(3, objeto.getId_mascota());
+		        ps.setObject(4, objeto.getFecha());
+		        ps.setDouble(5, objeto.getSubtotal());
+		        ps.setDouble(6, objeto.getTotal_iva());
+		        ps.setDouble(7, objeto.getTotal());
+		          
+		          int filas = ps.executeUpdate();
+		          if (filas > 0) {
+		                ResultSet rs = ps.getGeneratedKeys();
+		                if (rs.next()) {
+		                    objeto.setId_factura(rs.getInt(1));
+		                }
+		                return true;
+		            }
+		      } catch (SQLException e) {
+		            System.out.println("Error al insertar: " + e.getMessage());
+		      }
+		        return false;
+		    }
+
+	
 
 	@Override
 	public List<Factura> obtenerTodos() {
