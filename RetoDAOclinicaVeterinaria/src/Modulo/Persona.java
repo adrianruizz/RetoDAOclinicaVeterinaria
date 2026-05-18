@@ -1,7 +1,11 @@
 package Modulo;
 
-public class Persona {
+import java.io.Serializable;
 
+public class Persona implements Serializable {
+	
+
+    private static final long serialVersionUID = 1L;
 	
 	
 	private int id_persona;
