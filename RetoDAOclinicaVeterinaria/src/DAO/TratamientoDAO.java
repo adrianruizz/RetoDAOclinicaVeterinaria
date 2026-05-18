@@ -95,6 +95,48 @@ public class TratamientoDAO implements GenericDAO<Tratamiento> {
 		return lista;
 
 	}
+	
+	public double obtenerPrecio(int id) {
+		
+		String sql = "select precio from tratamientos where id_tratamiento=?" ;
+		
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				
+               return rs.getDouble("precio");
+			
+			}
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+
+		return 0;
+
+	}
+	
+	
+	public ArrayList<Tratamiento> obtenerNumTratamientos(int id) {
+		ArrayList<Tratamiento> lista = new ArrayList<>();
+		String sql = "select t.id_tratamiento, t.nombre, t.precio from tratamientos t inner join historial h on t.id_tratamiento=h.id_tratamiento where h.id_tratamiento=?";
+				
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				lista.add(mapear(rs));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+
+		return lista;
+
+	}
+	
 	private Tratamiento mapear(ResultSet rs) throws SQLException {
 		Tratamiento a = new Tratamiento();
 		a.setId_tratamiento(rs.getInt("id_tratamiento"));
