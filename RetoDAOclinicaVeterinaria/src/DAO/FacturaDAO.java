@@ -14,7 +14,8 @@ import Modulo.LineaFactura;
 import Util.ConexionBD;
 
 public class FacturaDAO implements GenericDAO<Factura>{
-
+	
+	
 	@Override
 	public boolean insertar(Factura objeto) {
 		  String sql = "INSERT INTO facturas (id_cliente, id_veterinario, id_mascota, fecha, subtotal, total_iva, total) VALUES (?, ?, ?, ?, ?, ?, ?)";
