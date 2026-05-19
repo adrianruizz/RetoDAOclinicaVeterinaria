@@ -14,6 +14,8 @@ import Modulo.LineaFactura;
 import Util.ConexionBD;
 
 public class FacturaDAO implements GenericDAO<Factura>{
+
+	
 	
 	
 	@Override

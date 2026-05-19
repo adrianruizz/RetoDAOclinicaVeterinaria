@@ -39,7 +39,9 @@ public class TratamientoDAO implements GenericDAO<Tratamiento> {
 
 	}
 
-	
+	public void name() {
+		
+	}
 	
 	
 	@Override
